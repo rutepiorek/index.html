@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quizz Rute</title>
+  <!-- para ter icone https://www.w3schools.com/html/html_favicon.asp origem do icone https://icons8.com.br/icons/set/question-mark -->
+  <link rel="icon" type="image/x-icon" href="./imagens/icons8-ponto-de-interrogação-78.png">
+  
+  <!-- para ter tamanho correcto no telemovel https://stackoverflow.com/questions/27971231/guidelines-for-resizing-and-adjusting-for-mobile-devices-using-javascript -->
+  <meta name="viewport" content="width=device-width">
+
+  <style>
+
+	body {
+
+		font-family: Arial, sans-serif;
+
+		text-align: center;
+
+		background-color: #faacdc;
+
+		margin: 0;
+
+		padding: 0;
+
+		background-color: #faacdc;
+
+	}
+
+	
+
+
+
+	.jogo {
+
+		max-width: 200px;
+
+		margin: 0 auto;
+
+		background-color: #f6f2f4;
+
+		border: 2px solid #fdfafc;
+
+		border-radius: 5px;
+
+		padding: 20px;
+
+	}
+
+
+
+	.tabuleiro {
+
+		display: grid;
+
+		grid-template-columns: repeat(3, 1fr);
+
+		grid-gap: 5px;
+
+		margin-bottom: 10px;
+
+	}
+
+
+
+
+
+	.espaco {
+
+		width: 50px;
+
+		height: 50px;
+
+		font-size: 24px;
+
+		text-align: center;
+
+		line-height: 50px;
+
+		background-color: #faacdc;
+
+		cursor: pointer;
+
+	}
+
+
+
+	 .espaco:hover {
+
+		background-color: #da44a3;
+
+	}
+
+
+
+	.texto {
+
+		font-size: 23px;
+
+		font-weight: bold;
+
+		margin-bottom: 30px;
+
+		color: rgb(75, 10, 216);
+		
+
+		
+
+		
+		 
+
+
+		
+
+	}
+
+
+
+	button {
+
+		font-size: 16px;
+
+		padding: 10px 20px;
+
+		background-color: #0074d9;
+
+		color: #e7f4b3;
+
+		border: none;
+
+		border-radius: 5px;
+
+		cursor: pointer;
+
+		
+
+	}
+
+
+
+	button:hover {
+
+		background-color: #16a646;
+
+
+	}
+
+	p {
+    font-family: arial;
+    font-size: x-large;
+    color: orange;
+}
+
+button#pergunta {
+    
+    margin-left: auto;
+    margin-right: auto;
+	background-color: orange;
+	
+}
+</style>
+</head>
+<body>
+
+<h1>Quizz!!</h1>
+
+<p>Por favor selecione uma das escolhas:</p>
+
+<img id="imagem" src="./imagens/quizz_cor.png" height="400">  
+
+<p class= "texto" id="texto"></p>	<br>
+
+<input type="radio" id="escolha1" name="escolhas">
+<label id="texto_escolha1" ></label><br>
+<input type="radio" id="escolha2" name="escolhas">
+<label id="texto_escolha2"></label><br>
+<input type="radio" id="escolha3" name="escolhas">
+<label id="texto_escolha3"></label><br>
+<input type="radio" id="escolha4" name="escolhas" value="JavaScript">
+<label id="texto_escolha4"></label><br> <br> 
+
+<button type="button" id="bloquear_escolha" onclick="bloquear_escolha()"> Bloquear escolha!</button> <br><br> 
+
+<button type="button" id="pergunta" onclick="pergunta()"> Siga para a proxima pergunta!</button> <br><br> 
+
+
+<img id="estrela1" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela2" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela3" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela4" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela5" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela6" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela7" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela8" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela9" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30">
+<img id="estrela10" src="https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png" height="30"> <br> 
+
+<h2 id="resultado"> </h3>
+
+<hr id = "linha"> <br> 
+<h1 id="resultado_final"> </h1> <br> 
+<button type="button" id="reiniciar" onclick="reiniciar()"> Reiniciar?</button>  <br>
+
+<script>
+
+// os dados das perguntas, o 1º item é a pergunta, 2º item a imagem, 3º ao 6 item são cada uma das opções, a opção correcta é a 1ª, na posicao 3
+var perguntas = [
+    ["Pergunta : A qual país pertence esta bandeira?", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Cameroon.svg/383px-Flag_of_Cameroon.svg.png", "Camarões", "Tunísia", "Chade", "Nigéria"],
+    ["Pergunta : Quem pintou o quadro O NASCIMENTO DE VENUS (1485)?", "https://www.artisangallery.pt/338/quadro-o-nascimento-de-venus-1482-85-.jpg", "Sandro Botticelli ", "Leonardo da Vinci", "Caravaggio", "Donatello"],
+    ["Pergunta : Em que dia se deu a Implantação da República Portuguesa?", "https://ensina.rtp.pt/site-uploads/2021/10/RepublicaCartaz-854x480.jpg", "5 de outubro de 1910", "2 de outubro de 1910", "5 de outubro de 1915", "5 de outubro de 1911"],
+    ["Pergunta : Quem escreveu o livro “A Amiga Genial” o primeiro da conhecida saga A Napolitana?", "https://1.bp.blogspot.com/-ips0SnaQaB4/XR0L3cJWC8I/AAAAAAAAAGA/sV9rAJ5tTKsGHAhPla6PQrUlhkKO1mQFgCLcBGAs/s640/peq_IMG_4841.jpg", "Elena Ferrante", "Domenico Starnone", "Elsa Morante", "Margaret Mazzantini"],
+    ["Pergunta : Qual o nome do filme representado na imagem?", "https://i0.wp.com/cinemaepixels.com.br/wp-content/uploads/2022/11/forrest-gump-poster-1-scaled-e1668637573138.jpg?resize=1024%2C683&ssl=1", "Forrest Gump", "Terminal de Aeroporto", "À Espera de Um Milagre", "Apollo 13"],
+    ["Pergunta : Qual o nome do segundo planeta a contar do sol?", "https://static.mundoeducacao.uol.com.br/mundoeducacao/2022/03/planeta-sistema-solar.jpg", "Vénus", "Mercurio", "Marte", "Terra"],
+    ["Pergunta : Em que ano começou a I Guerra Mundial?", "https://static.mundoeducacao.uol.com.br/mundoeducacao/2021/07/soldados-franceses-rastejando-em-seus-proprios-emaranhados-de-arame-farpado-na-batalha-de-verdun-primeira-guerra-mundial.jpg", "1914", "1913", "1915", "1912"],
+    ["Pergunta : Qual é o país representado na imagem?", "https://www.fla-shop.com/svg/canada/canada-outline.svg", "Canada", "China", "Nova Zelandia", "Indonésia"],
+    ["Pergunta : Quem descobriu a Ilha Hispaniola, onde se encontra a República Dominicana?", "https://st5.depositphotos.com/2465573/67178/v/950/depositphotos_671787614-stock-illustration-hispaniola-surroundings-colored-political-map.jpg", "Cristóvão Colombo", "Pedro Álvares Cabral", "Fernão de Magalhães", "James Cook"],
+    ["Pergunta : Em quantos cantos está dividido Os Lusíadas?", "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Os_Lus%C3%ADadas.jpg/345px-Os_Lus%C3%ADadas.jpg", "10", "20", "7", "12"],
+    ["Pergunta : Quem foi o treinador do S.L.Benfica na época 2016/17?", "https://brinclandia.com/wp-content/uploads/2018/11/SLB-013-G.jpg", "Rui Vitória", "Bruno Lage", "Jorge Jesus", "Nelson Veríssimo"],
+    ["Pergunta : Qual foi o primeiro português a ganhar uma medalha de Ouro nos Jogos Olimpicos?", "https://www.infoescola.com/wp-content/uploads/2007/10/jogos-olimpicos-450x225.png", "Carlos Lopes", "Rosa Mota", "Fernanda Ribeiro", "Nélson Évora"],
+    ["Pergunta : Como é representado o elemento químico do SÓDIO  na tabela periódica?", "https://assets.herbalifenutrition.com/content/dam/regional/mexico/es_mx/sites/herbalife_nutrition/web_graphic/editorial/2022/04-Apr/Sodio.png", "Na", "Sd", "So", "Ns"],
+    ["Pergunta : Quantas ilhas tem o Arquipelago dos Açores?", "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Flag_of_the_Azores.svg/450px-Flag_of_the_Azores.svg.png", "9", "8", "7", "10"],
+    ["Pergunta : Como se chama o desenho animado representado na imagem?", "https://static.globalnoticias.pt/dn/image.jpg?brand=DN&type=generate&guid=8a95b021-b464-440d-afd0-0d6ef21fda35&t=20230419141337", "Os Flinstones", "Os Simpsons", "Os Jetsons", "Os Fredstones"]
+	["Pergunta : Quem pintou a Mona Lisa?", "https://cdn.pariscityvision.com/library/image/5449.jpg" , "Leonardo da Vinci ", "Monet", "Caravaggio", "Donatello"],
+	["Pergunta : Que grupo musical canta a canção : Olá Solidão ?" , "https://media.rtp.pt/festivaldacancao/wp-content/uploads/sites/98/2022/02/Festival-da-Cancao-2022-Os-Quatro-e-Meia-1-860x507.jpg" ,"Os quatro e meia" , "Clã" , "Expensive soul" , "Karetus"],
+    ["Pergunta : Termina a expressão: Grão a grão...." , "https://josadakmarcola.com.br/wp-content/uploads/2020/07/056b-De-gr%C3%A3o-em-gr%C3%A3o-a-galinha-enche-o-papo.png" , "enche a galinha o papo","enche o pintainho o papo","enche o galo o papo", "enche o pato o papo"],
+
+
+];
+
+// as posições onde estão guardados os dados nas perguntas https://www.freecodecamp.org/news/javascript-2d-arrays/
+const TEXTO_QUIZZ = 0;
+const IMAGEM = 1;
+const TEXTO_ESCOLHA_1 = 2;
+const TEXTO_ESCOLHA_2 = 3;
+const TEXTO_ESCOLHA_3 = 4;
+const TEXTO_ESCOLHA_4 = 5;
+
+// guarda as perguntas já feitas para não se repetirem
+var perguntas_feitas = [];
+
+var numero_perguntas_feitas = 0;
+var escolha_certa = 0;
+var perguntas_acertadas = 0;
+var perguntas_erradas = 0;
+
+// o maximo de perguntas
+const MAXIMO_PERGUNTAS = 10;
+
+// chamar o jogo
+iniciar();
+
+function iniciar(){
+
+	// começar do zero, colocar todas as estrelas a zero
+	document.getElementById("estrela1").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela2").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela3").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela4").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela5").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela6").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela7").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela8").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela9").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	document.getElementById("estrela10").src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+	
+	// esconder o resultado final
+	document.getElementById("linha").style.display = "none";
+	document.getElementById("resultado_final").innerHTML = "";
+	document.getElementById("reiniciar").style.display = "none";
+	
+	// por variaveis a 0
+	perguntas_feitas = [];
+	numero_perguntas_feitas = 0;
+	escolha_certa = 0;
+	perguntas_acertadas = 0;
+	perguntas_erradas = 0;
+
+	// fazer a primeira pergunta
+	pergunta();	
+}
+
+function pergunta(){	
+
+	// escolher a pergunta da lista de perguntas, vai dar uma pergunta que ainda não saiu
+	var numero_pergunta = escolher_pergunta();
+	
+	limpar();
+
+	document.getElementById("texto").innerHTML = perguntas[numero_pergunta][TEXTO_QUIZZ];
+	
+	var imagem_src = perguntas[numero_pergunta][IMAGEM];
+	if (imagem_src == "") {
+		// se não tiver imagem, por imagem generica
+		imagem_src = "./imagens/quizz_cor.png";
+	}
+	document.getElementById("imagem").src = imagem_src;
+	
+	// misturar as escolhas
+	var escolhas = [1,2,3,4];
+	escolhas = shuffle(escolhas);
+	
+	// o TEXTO_ESCOLHA_1 é o correcto, vai ser colocado no elemento da primeira posição das escolhas misturadas
+	escolha_certa = escolhas[0];
+	document.getElementById("texto_escolha" + escolhas[0]).innerHTML = perguntas[numero_pergunta][TEXTO_ESCOLHA_1];	
+	document.getElementById("texto_escolha" + escolhas[1]).innerHTML = perguntas[numero_pergunta][TEXTO_ESCOLHA_2];
+	document.getElementById("texto_escolha" + escolhas[2]).innerHTML = perguntas[numero_pergunta][TEXTO_ESCOLHA_3];
+	document.getElementById("texto_escolha" + escolhas[3]).innerHTML = perguntas[numero_pergunta][TEXTO_ESCOLHA_4];	
+	
+}
+
+// decidir onde colocar as escolhas usando metodo indicado em
+// https://pt.stackoverflow.com/questions/94646/como-misturar-um-array-em-javascript
+function shuffle(array) {
+  var m = array.length, t, i;
+
+  // enquanto restarem elementos para mistrurar
+  while (m) {
+
+    // seleciona um elemento que ainda reste
+    i = Math.floor(Math.random() * m--);
+
+    //  e troca pelo elemento actual
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+
+  return array;
+}
+
+function limpar(){	
+	// ativar as escolhas e limpar o selecionado
+	document.getElementById("escolha1").disabled = false;
+	document.getElementById("escolha2").disabled = false;
+	document.getElementById("escolha3").disabled = false;
+	document.getElementById("escolha4").disabled = false;
+	document.getElementById("escolha1").checked = false;
+	document.getElementById("escolha2").checked = false;
+	document.getElementById("escolha3").checked = false;
+	document.getElementById("escolha4").checked = false;	
+	
+	// ativar o botão para bloquear a escolha
+	document.getElementById("bloquear_escolha").disabled = false;
+	
+	// esconder o botão que permite ir para a proxima pergunta, vai aparecer quando bloquear a escolha
+	document.getElementById("pergunta").style.display = "none";
+
+	// colocar a cor dos textos normal, sem o certo e o errado
+	document.getElementById("texto_escolha1").style.backgroundColor  = "pink";
+	document.getElementById("texto_escolha1").style.color  = "blue";	
+	document.getElementById("texto_escolha2").style.backgroundColor  = "pink";
+	document.getElementById("texto_escolha2").style.color  = "blue";	
+	document.getElementById("texto_escolha3").style.backgroundColor  = "pink";
+	document.getElementById("texto_escolha3").style.color  = "blue";	
+	document.getElementById("texto_escolha4").style.backgroundColor  = "pink";
+	document.getElementById("texto_escolha4").style.color  = "blue";	
+
+	document.getElementById("resultado").innerHTML = "";
+}
+
+function escolher_pergunta(){	
+	var pergunta = -1;
+	
+	while (pergunta == -1) {		
+		// dá à sorte um valor de 0 até ao numero total perguntas -1 https://www.w3schools.com/js/js_random.asp
+		pergunta = Math.floor(Math.random() * perguntas.length );
+		if (perguntas_feitas.includes(pergunta)){
+			// já foi colocada esta pergunta, continuar a procurar
+			pergunta = -1;
+		}
+		else {
+			// guardar a pergunta
+			perguntas_feitas.push(pergunta);	
+			numero_perguntas_feitas++;
+			
+			return pergunta;
+		}
+	}
+}
+
+function bloquear_escolha() {
+
+	var escolha = 0;
+	
+	// encontrar a escolha feita pelo utilizador
+	if(document.getElementById("escolha1").checked) {
+		escolha = 1;
+	}
+	else if(document.getElementById("escolha2").checked) {
+		escolha = 2;
+	}
+	else if(document.getElementById("escolha3").checked) {
+		escolha = 3;
+	}
+	else if(document.getElementById("escolha4").checked) {
+		escolha = 4;
+	}
+	else {
+		alert("Escolha uma das hipóteses");
+		return;
+	}
+	
+	// verificar se é a escolha certa
+	if (escolha == escolha_certa){	
+		document.getElementById("resultado").innerHTML = "A escolha está correcta!";
+		document.getElementById("resultado").style.color = "green";
+				
+		document.getElementById("estrela" + numero_perguntas_feitas).src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_cinza.png";
+		
+		perguntas_acertadas++;
+	}
+	else {	
+		document.getElementById("resultado").innerHTML = "A escolha está errada!";
+		document.getElementById("resultado").style.color = "red";		
+		
+		document.getElementById("estrela" + numero_perguntas_feitas).src = "https://sess_25023051-e574-4b0a-897e-38703ea77ebb.w3spaces-preview.com/imagens/icons8-estrela-preenchida-64_vermelha.png";
+		
+		document.getElementById("texto_escolha" + escolha).style.backgroundColor  = "red";
+		document.getElementById("texto_escolha" + escolha).style.color  = "white";
+		
+		perguntas_erradas++;
+	}
+	
+	// mostrar a escolha certa
+	document.getElementById("texto_escolha" + escolha_certa).style.backgroundColor  = "green";
+	document.getElementById("texto_escolha" + escolha_certa).style.color  = "white";
+	
+	// desabilitar as escolhas
+	document.getElementById("escolha1").disabled = true;
+	document.getElementById("escolha2").disabled = true;
+	document.getElementById("escolha3").disabled = true;
+	document.getElementById("escolha4").disabled = true;
+	document.getElementById("bloquear_escolha").disabled = true;
+	
+	if (numero_perguntas_feitas == MAXIMO_PERGUNTAS){
+		// chegou ao fim, mostrar resultados
+		document.getElementById("linha").style.display = "block";
+		document.getElementById("reiniciar").style.display = "block";
+		
+		if (perguntas_acertadas == MAXIMO_PERGUNTAS){
+			document.getElementById("resultado_final").style.color = "green";
+			document.getElementById("resultado_final").innerHTML = "Acertaste todas as " + perguntas_acertadas + " perguntas!";		
+		}
+		else if (perguntas_erradas == MAXIMO_PERGUNTAS){
+			document.getElementById("resultado_final").style.color = "red";
+			document.getElementById("resultado_final").innerHTML = "Falhaste todas as " + perguntas_erradas + " perguntas!";
+		}
+		else {
+			document.getElementById("resultado_final").style.color  = "black";
+			document.getElementById("resultado_final").innerHTML = "Acertaste " + perguntas_acertadas + " perguntas e falhaste " + perguntas_erradas + "!";
+		}
+	}
+	else {
+		// ainda não chegou ao fim, mostrar o botão que permite seguir para a proxima pergunta
+		document.getElementById("pergunta").style.display = "block";
+	}
+}
+
+function reiniciar(){
+	if (window.confirm("Deseja reiniciar o QUIZZ?") == true) {
+		iniciar();
+	}
+}
+
+
+
+</script>
+</body>
+</html>
